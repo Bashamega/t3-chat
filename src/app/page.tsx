@@ -6,7 +6,7 @@ import { AuthButtons } from "@/components/auth/auth-buttons";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 transition-colors duration-300">
+    <div className="min-h-screen transition-colors duration-300">
       {/* Navigation */}
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
