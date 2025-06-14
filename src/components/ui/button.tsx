@@ -9,10 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        outline:
-          "border-2 border-gray-600 text-gray-300 px-8 py-4 rounded-xl font-semibold hover:bg-gray-800 hover:border-gray-500 transition-all duration-200",
-        gradient:
-          "bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center justify-center",
+        outline: "border-2 border-gray-600 text-gray-300 px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 hover:border-gray-400 transition-all duration-150",
+        gradient: "bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-md hover:scale-100 transition-all duration-150 flex items-center justify-center",
       },
       size: {
         default: "",

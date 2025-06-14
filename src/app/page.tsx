@@ -2,6 +2,7 @@
 import React from 'react';
 import { MessageCircle, Zap, Shield, Clock, ArrowRight, Star, Users, Cpu, Globe } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { AuthButtons } from "@/components/auth/auth-buttons";
 
 function App() {
   return (
@@ -19,9 +20,7 @@ function App() {
             <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
             <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
             <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
-            <Button variant="gradient" size="default">
-              Get Started
-            </Button>
+            <AuthButtons />
           </div>
         </div>
       </nav>
