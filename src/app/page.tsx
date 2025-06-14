@@ -41,11 +41,11 @@ function App() {
             Experience AI conversations at unprecedented speed. T3 Chat delivers instant responses with superior accuracy, revolutionizing how you interact with artificial intelligence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="gradient" size="lg">
+            <Button variant="gradient">
               Start Chatting Now
               <ArrowRight className="w-5 h-5" />
             </Button>
-            <Button variant="outline" size="lg" className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500">
+            <Button variant="outline">
               Watch Demo
             </Button>
           </div>
@@ -284,11 +284,11 @@ function App() {
             Join thousands of professionals who've already made the switch to faster, smarter AI conversations.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="gradient" size="lg">
+            <Button variant="gradient">
               Start Free Trial
               <ArrowRight className="w-5 h-5" />
             </Button>
-            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-gray-900">
+            <Button variant="outline">
               Schedule Demo
             </Button>
           </div>
