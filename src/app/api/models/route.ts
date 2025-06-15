@@ -25,8 +25,8 @@ export async function GET(req: NextRequest) {
     const models = await response.json();
     const data = models.data.filter(
       (model: any) =>
-        model.pricing?.prompt === "0" &&
-        model.pricing?.completion === "0"
+        Number(model.pricing?.prompt) === 0 &&
+        Number(model.pricing?.completion) === 0
     ).map((model: any) => {
       return { 
         id: model.id,
