@@ -1,5 +1,6 @@
-import { X } from "lucide-react";
+import { X, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useModelsQuery } from "@/lib/api";
 
 interface ModelSelectorModalProps {
   isOpen: boolean;
@@ -15,9 +16,7 @@ export default function ModelSelectorModal({
   selectedModel,
 }: ModelSelectorModalProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [models, setModels] = useState<string[]>(['gpt-4', 'gpt-3.5', 'claude', 'hey']);
-
-
+  const { data, isLoading } = useModelsQuery();
 
   // Save selected model to localStorage whenever it changes
   useEffect(() => {
@@ -28,9 +27,9 @@ export default function ModelSelectorModal({
 
   if (!isOpen) return null;
 
-  const filteredModels = models.filter(model =>
-    model.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredModels = data?.filter(model =>
+    model.name.toLowerCase().includes(searchTerm.toLowerCase())
+  ) ?? [];
 
   const handleModelSelect = (model: string) => {
     onSelectModel(model);
@@ -43,7 +42,7 @@ export default function ModelSelectorModal({
       role="dialog"
       aria-modal="true"
     >
-      <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md shadow-xl relative">
+      <div className="bg-gray-800 rounded-lg p-6 w-1/2 shadow-xl relative h-1/2">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -65,34 +64,33 @@ export default function ModelSelectorModal({
           className="w-full px-4 py-3 text-gray-200 bg-gray-700 rounded-lg mb-4 placeholder-gray-400"
         />
 
-        {/* Model List */}
-        <div className="space-y-2 max-h-60 overflow-y-auto">
-          {filteredModels.length > 0 ? (
-            filteredModels.map((model) => (
-              <button
-                key={model}
-                className={`w-full px-4 py-3 text-left rounded-lg transition-colors ${
-                  selectedModel === model
-                    ? 'bg-gray-600 text-white'
-                    : 'text-gray-200 hover:bg-gray-700'
-                }`}
-                onClick={() => handleModelSelect(model)}
-              >
-                {model}
-              </button>
-            ))
-          ) : (
-            <p className="text-gray-400">No models found.</p>
-          )}
-        </div>
+        {isLoading ? (
+          <div className="flex justify-center items-center py-8">
+            <Loader2 className=" text-gray-400 animate-spin" size={50} />
+          </div>
+        ) : (
+          <div className={filteredModels.length > 0 ? "space-y-2 max-h-60 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" : ""}>
+            {filteredModels.length > 0 ? (
+              filteredModels.map((model) => (
+                <button
+                  key={model.id}
+                  className={`cursor-pointer w-full px-4 py-3 text-center rounded-lg transition-colors ${
+                    selectedModel === model.name
+                      ? 'bg-gray-600 text-white'
+                      : 'text-gray-200 hover:bg-gray-700'
+                  }`}
+                  onClick={() => handleModelSelect(model.name)}
+                >
+                  <div className="font-medium text-ellipsis line-clamp-2">{model.name}</div>
+                </button>
+              ))
+            ) : (
+              <p className="text-gray-400 text-center">No models found.</p>
+            )}
+          </div>
+        )}
 
-        {/* Cancel Button */}
-        <button
-          className="mt-4 w-full px-4 py-2 bg-gray-700 text-gray-200 rounded-lg hover:bg-gray-600 transition-colors"
-          onClick={onClose}
-        >
-          Cancel
-        </button>
+
       </div>
     </div>
   );

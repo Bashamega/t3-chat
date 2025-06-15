@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ConvexClientProvider } from "@/components/providers/convex-client-provider";
+import { QueryProvider } from "@/components/providers/query-client-provider";
 import "./globals.css";
 import { dark } from "@clerk/themes";
 
@@ -33,9 +34,11 @@ export default function RootLayout({
         <ClerkProvider appearance={{
           baseTheme: dark,
         }} publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}>
-          <ConvexClientProvider>
-            {children}
-          </ConvexClientProvider>
+          <QueryProvider>
+            <ConvexClientProvider>
+              {children}
+            </ConvexClientProvider>
+          </QueryProvider>
         </ClerkProvider>
       </body>
     </html>
