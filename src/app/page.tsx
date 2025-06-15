@@ -3,6 +3,7 @@ import React from 'react';
 import { MessageCircle, Zap, Shield, Clock, ArrowRight, Star, Users, Cpu, Globe } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { AuthButtons } from "@/components/auth/auth-buttons";
+import Link from 'next/link';
 
 function App() {
   return (
@@ -40,10 +41,12 @@ function App() {
             Experience AI conversations at unprecedented speed. T3 Chat delivers instant responses with superior accuracy, revolutionizing how you interact with artificial intelligence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="gradient">
+            <Link href={"/chat"}>
+            <Button variant="gradient" className='cursor-pointer'>
               Start Chatting Now
               <ArrowRight className="w-5 h-5" />
             </Button>
+            </Link>
             <Button variant="outline">
               Watch Demo
             </Button>
