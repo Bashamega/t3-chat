@@ -3,12 +3,15 @@ import { NextRequest, NextResponse } from 'next/server';
 // Allowed origins (edit for production use)
 const ALLOWED_ORIGINS = ['http://localhost:3000'];
 
+// Set cache forever: s-maxage=31536000 (1 year), immutable
+const CACHE_FOREVER_HEADER = 'public, s-maxage=31536000, immutable';
+
 export async function GET(req: NextRequest) {
   const origin = req.headers.get('origin') || '';
   const isAllowedOrigin = ALLOWED_ORIGINS.includes(origin);
 
   try {
-    const response = await fetch('https://openrouter.ai/api/v1/models/?max_price=0', {
+    const response = await fetch('https://openrouter.ai/api/v1/models/', {
       headers: {
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
         'Content-Type': 'application/json',
@@ -20,16 +23,22 @@ export async function GET(req: NextRequest) {
     }
 
     const models = await response.json();
-    const data = models.filter(
-        (model: any) =>
-          model.pricing?.prompt === 0 &&
-          model.pricing?.completion === 0
-      );      
+    const data = models.data.filter(
+      (model: any) =>
+        model.pricing?.prompt === "0" &&
+        model.pricing?.completion === "0"
+    ).map((model: any) => {
+      return { 
+        id: model.id,
+        name: model.name.replace(' (free)', ''),
+        description: model.description 
+      };
+    });
 
     const res = NextResponse.json(data, {
       status: 200,
       headers: {
-        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=60',
+        'Cache-Control': CACHE_FOREVER_HEADER,
       },
     });
 
