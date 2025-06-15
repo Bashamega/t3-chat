@@ -1,9 +1,9 @@
 import Input from "@/components/chat/input";
 
-export default function Chat(){
-    return(
-        <>
-            <Input/>
-        </>
-    )
+export default function Chat() {
+  return (
+    <>
+      <Input />
+    </>
+  );
 }

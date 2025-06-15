@@ -7,7 +7,7 @@ export function AuthButtons() {
   return (
     <div className="flex items-center gap-4">
       <SignedIn>
-        <UserButton/>
+        <UserButton />
       </SignedIn>
       <SignedOut>
         <SignInButton mode="modal">
@@ -19,4 +19,4 @@ export function AuthButtons() {
       </SignedOut>
     </div>
   );
-} 
+}
