@@ -1,6 +1,12 @@
-import { X, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useModelsQuery } from "@/lib/api";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface ModelSelectorModalProps {
   isOpen: boolean;
@@ -25,8 +31,6 @@ export default function ModelSelectorModal({
     }
   }, [selectedModel]);
 
-  if (!isOpen) return null;
-
   const filteredModels = data?.filter(model =>
     model.name.toLowerCase().includes(searchTerm.toLowerCase())
   ) ?? [];
@@ -37,25 +41,13 @@ export default function ModelSelectorModal({
   };
 
   return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className="bg-gray-800 rounded-lg p-6 w-1/2 shadow-xl relative h-1/2">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-200 transition-colors"
-          aria-label="Close modal"
-        >
-          <X size={20} />
-        </button>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[800px] h-[600px]">
+        <DialogHeader>
+          <DialogTitle>Select Model</DialogTitle>
+        </DialogHeader>
 
-        {/* Header */}
-        <h3 className="text-lg font-semibold text-gray-200 mb-4">Select Model</h3>
-
-        {/* Search Input */}
+        <div className="h-full overflow-hidden">{/* Search Input */}
         <input
           type="text"
           value={searchTerm}
@@ -66,10 +58,10 @@ export default function ModelSelectorModal({
 
         {isLoading ? (
           <div className="flex justify-center items-center py-8">
-            <Loader2 className=" text-gray-400 animate-spin" size={50} />
+            <Loader2 className="text-gray-400 animate-spin" size={50} />
           </div>
         ) : (
-          <div className={filteredModels.length > 0 ? "space-y-2 max-h-60 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" : ""}>
+          <div className={filteredModels.length > 0 ? "space-y-2 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 h-full" : ""}>
             {filteredModels.length > 0 ? (
               filteredModels.map((model) => (
                 <button
@@ -88,10 +80,8 @@ export default function ModelSelectorModal({
               <p className="text-gray-400 text-center">No models found.</p>
             )}
           </div>
-        )}
-
-
-      </div>
-    </div>
+        )}</div>
+      </DialogContent>
+    </Dialog>
   );
 }
