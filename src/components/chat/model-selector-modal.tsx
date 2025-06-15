@@ -22,7 +22,7 @@ export default function ModelSelectorModal({
   selectedModel,
 }: ModelSelectorModalProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const { data, isLoading } = useModelsQuery();
+  const { data, isLoading, isError } = useModelsQuery();
 
   // Save selected model to localStorage whenever it changes
   useEffect(() => {
@@ -56,7 +56,11 @@ export default function ModelSelectorModal({
           className="w-full px-4 py-3 text-gray-200 bg-gray-700 rounded-lg mb-4 placeholder-gray-400"
         />
 
-        {isLoading ? (
+        {isError ? (
+          <div className="flex justify-center items-center py-8">
+            <p className="text-red-500 text-center">Failed to load models. Please try again later.</p>
+          </div>
+        ) : isLoading ? (
           <div className="flex justify-center items-center py-8">
             <Loader2 className="text-gray-400 animate-spin" size={50} />
           </div>
