@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-async function fetchModels() : Promise<Model[]> {
+async function fetchModels(): Promise<Model[]> {
   const res = await fetch("/api/models");
   if (!res.ok) {
     throw new Error("Failed to fetch models");
@@ -20,4 +20,3 @@ export function useModelsQuery() {
     refetchOnWindowFocus: false,
   });
 }
-

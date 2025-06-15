@@ -31,13 +31,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-gray-900 to-blue-900`}
       >
-        <ClerkProvider appearance={{
-          baseTheme: dark,
-        }} publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}>
+        <ClerkProvider
+          appearance={{
+            baseTheme: dark,
+          }}
+          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}
+        >
           <QueryProvider>
-            <ConvexClientProvider>
-              {children}
-            </ConvexClientProvider>
+            <ConvexClientProvider>{children}</ConvexClientProvider>
           </QueryProvider>
         </ClerkProvider>
       </body>

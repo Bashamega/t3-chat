@@ -1,9 +1,19 @@
-"use client"
-import React from 'react';
-import { MessageCircle, Zap, Shield, Clock, ArrowRight, Star, Users, Cpu, Globe } from 'lucide-react';
+"use client";
+import React from "react";
+import {
+  MessageCircle,
+  Zap,
+  Shield,
+  Clock,
+  ArrowRight,
+  Star,
+  Users,
+  Cpu,
+  Globe,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AuthButtons } from "@/components/auth/auth-buttons";
-import Link from 'next/link';
+import Link from "next/link";
 
 function App() {
   return (
@@ -18,9 +28,15 @@ function App() {
             <span className="text-xl font-bold text-white">T3 Chat</span>
           </div>
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
-            <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
-            <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
+            <a href="#features" className="text-gray-300 hover:text-white transition-colors">
+              Features
+            </a>
+            <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">
+              Pricing
+            </a>
+            <a href="#about" className="text-gray-300 hover:text-white transition-colors">
+              About
+            </a>
             <AuthButtons />
           </div>
         </div>
@@ -34,22 +50,25 @@ function App() {
             3x Faster Than ChatGPT
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            The <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Lightning-Fast</span><br />
+            The{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Lightning-Fast
+            </span>
+            <br />
             AI Chat Experience
           </h1>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Experience AI conversations at unprecedented speed. T3 Chat delivers instant responses with superior accuracy, revolutionizing how you interact with artificial intelligence.
+            Experience AI conversations at unprecedented speed. T3 Chat delivers instant responses
+            with superior accuracy, revolutionizing how you interact with artificial intelligence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href={"/chat"}>
-            <Button variant="gradient" className='cursor-pointer'>
-              Start Chatting Now
-              <ArrowRight className="w-5 h-5" />
-            </Button>
+              <Button variant="gradient" className="cursor-pointer">
+                Start Chatting Now
+                <ArrowRight className="w-5 h-5" />
+              </Button>
             </Link>
-            <Button variant="outline">
-              Watch Demo
-            </Button>
+            <Button variant="outline">Watch Demo</Button>
           </div>
         </div>
       </section>
@@ -81,10 +100,11 @@ function App() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-white mb-4">Why Choose T3 Chat?</h2>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Built from the ground up for speed, accuracy, and reliability. Experience the future of AI communication.
+            Built from the ground up for speed, accuracy, and reliability. Experience the future of
+            AI communication.
           </p>
         </div>
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="bg-gray-800 p-8 rounded-3xl shadow-lg hover:shadow-xl shadow-gray-900/20 transition-all duration-300 hover:-translate-y-1">
             <div className="w-12 h-12 bg-blue-900/50 rounded-xl flex items-center justify-center mb-6">
@@ -92,7 +112,8 @@ function App() {
             </div>
             <h3 className="text-xl font-bold text-white mb-4">Lightning Speed</h3>
             <p className="text-gray-300 leading-relaxed">
-              Get responses in under 0.5 seconds. Our optimized infrastructure ensures you never wait for answers.
+              Get responses in under 0.5 seconds. Our optimized infrastructure ensures you never
+              wait for answers.
             </p>
           </div>
 
@@ -102,7 +123,8 @@ function App() {
             </div>
             <h3 className="text-xl font-bold text-white mb-4">Enterprise Security</h3>
             <p className="text-gray-300 leading-relaxed">
-              Bank-grade encryption and privacy protection. Your conversations stay private and secure.
+              Bank-grade encryption and privacy protection. Your conversations stay private and
+              secure.
             </p>
           </div>
 
@@ -112,7 +134,8 @@ function App() {
             </div>
             <h3 className="text-xl font-bold text-white mb-4">Advanced AI</h3>
             <p className="text-gray-300 leading-relaxed">
-              Powered by cutting-edge language models fine-tuned for accuracy and contextual understanding.
+              Powered by cutting-edge language models fine-tuned for accuracy and contextual
+              understanding.
             </p>
           </div>
 
@@ -132,7 +155,8 @@ function App() {
             </div>
             <h3 className="text-xl font-bold text-white mb-4">Team Collaboration</h3>
             <p className="text-gray-300 leading-relaxed">
-              Share conversations, collaborate on projects, and work together with powerful team features.
+              Share conversations, collaborate on projects, and work together with powerful team
+              features.
             </p>
           </div>
 
@@ -142,7 +166,8 @@ function App() {
             </div>
             <h3 className="text-xl font-bold text-white mb-4">Multi-language</h3>
             <p className="text-gray-300 leading-relaxed">
-              Communicate in over 100 languages with native-level fluency and cultural understanding.
+              Communicate in over 100 languages with native-level fluency and cultural
+              understanding.
             </p>
           </div>
         </div>
@@ -157,7 +182,7 @@ function App() {
               Compare T3 Chat with other AI assistants and experience the speed advantage.
             </p>
           </div>
-          
+
           <div className="bg-gray-800 rounded-3xl p-8 shadow-2xl max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8 text-center">
               <div>
@@ -177,13 +202,13 @@ function App() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="md:border-l md:border-r border-gray-600 px-4">
                 <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 inline-block">
                   VS
                 </div>
               </div>
-              
+
               <div>
                 <h3 className="text-lg font-semibold text-blue-400 mb-4">T3 Chat</h3>
                 <div className="space-y-4">
@@ -212,7 +237,7 @@ function App() {
           <h2 className="text-4xl font-bold text-white mb-4">Loved by Professionals</h2>
           <p className="text-xl text-gray-300">See what our users are saying about T3 Chat</p>
         </div>
-        
+
         <div className="grid md:grid-cols-3 gap-8">
           <div className="bg-gray-800 p-8 rounded-3xl shadow-lg shadow-gray-900/20">
             <div className="flex items-center mb-4">
@@ -221,7 +246,8 @@ function App() {
               ))}
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              "The speed is incredible. I can't go back to slower AI assistants after using T3 Chat. It's transformed my workflow completely."
+              &quot;The speed is incredible. I can&apos;t go back to slower AI assistants after
+              using T3 Chat. It&apos;s transformed my workflow completely.&quot;
             </p>
             <div className="flex items-center">
               <div className="w-10 h-10 bg-blue-900/50 rounded-full flex items-center justify-center mr-3">
@@ -241,7 +267,8 @@ function App() {
               ))}
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              "Finally, an AI that keeps up with my thinking pace. The instant responses make brainstorming sessions so much more productive."
+              &quot;Finally, an AI that keeps up with my thinking pace. The instant responses make
+              brainstorming sessions so much more productive.&quot;
             </p>
             <div className="flex items-center">
               <div className="w-10 h-10 bg-purple-900/50 rounded-full flex items-center justify-center mr-3">
@@ -261,7 +288,8 @@ function App() {
               ))}
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              "The combination of speed and accuracy is unmatched. T3 Chat has become an essential tool for our entire team."
+              &quot;The combination of speed and accuracy is unmatched. T3 Chat has become an
+              essential tool for our entire team.&quot;
             </p>
             <div className="flex items-center">
               <div className="w-10 h-10 bg-green-900/50 rounded-full flex items-center justify-center mr-3">
@@ -283,16 +311,15 @@ function App() {
             Ready to Experience Lightning-Fast AI?
           </h2>
           <p className="text-xl text-blue-200 mb-8 max-w-2xl mx-auto">
-            Join thousands of professionals who've already made the switch to faster, smarter AI conversations.
+            Join thousands of professionals who&apos;ve already made the switch to faster, smarter
+            AI conversations.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="gradient">
               Start Free Trial
               <ArrowRight className="w-5 h-5" />
             </Button>
-            <Button variant="outline">
-              Schedule Demo
-            </Button>
+            <Button variant="outline">Schedule Demo</Button>
           </div>
           <p className="text-blue-300 text-sm mt-4">No credit card required • 14-day free trial</p>
         </div>
@@ -313,38 +340,86 @@ function App() {
                 The fastest AI chat platform built for modern professionals and teams.
               </p>
             </div>
-            
+
             <div>
               <h3 className="font-semibold mb-4">Product</h3>
               <ul className="space-y-2 text-gray-500">
-                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">API</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Features
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Pricing
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    API
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Security
+                  </a>
+                </li>
               </ul>
             </div>
-            
+
             <div>
               <h3 className="font-semibold mb-4">Company</h3>
               <ul className="space-y-2 text-gray-500">
-                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Blog
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Careers
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Contact
+                  </a>
+                </li>
               </ul>
             </div>
-            
+
             <div>
               <h3 className="font-semibold mb-4">Support</h3>
               <ul className="space-y-2 text-gray-500">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Status</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Help Center
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Status
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Privacy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Terms
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
-          
+
           <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-500">
             <p>&copy; 2025 T3 Chat. All rights reserved.</p>
           </div>
