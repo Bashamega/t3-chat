@@ -39,6 +39,7 @@ export async function GET(req: NextRequest) {
       status: 200,
       headers: {
         'Cache-Control': CACHE_FOREVER_HEADER,
+        Vary: 'Origin',
       },
     });
 
