@@ -1,5 +1,12 @@
-import { X } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useModelsQuery } from "@/lib/api";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface ModelSelectorModalProps {
   isOpen: boolean;
@@ -15,9 +22,7 @@ export default function ModelSelectorModal({
   selectedModel,
 }: ModelSelectorModalProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [models, setModels] = useState<string[]>(['gpt-4', 'gpt-3.5', 'claude', 'hey']);
-
-
+  const { data, isLoading, isError } = useModelsQuery();
 
   // Save selected model to localStorage whenever it changes
   useEffect(() => {
@@ -26,11 +31,9 @@ export default function ModelSelectorModal({
     }
   }, [selectedModel]);
 
-  if (!isOpen) return null;
-
-  const filteredModels = models.filter(model =>
-    model.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredModels = data?.filter(model =>
+    model.name.toLowerCase().includes(searchTerm.toLowerCase())
+  ) ?? [];
 
   const handleModelSelect = (model: string) => {
     onSelectModel(model);
@@ -38,25 +41,13 @@ export default function ModelSelectorModal({
   };
 
   return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md shadow-xl relative">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-200 transition-colors"
-          aria-label="Close modal"
-        >
-          <X size={20} />
-        </button>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[800px] h-[600px]">
+        <DialogHeader>
+          <DialogTitle>Select Model</DialogTitle>
+        </DialogHeader>
 
-        {/* Header */}
-        <h3 className="text-lg font-semibold text-gray-200 mb-4">Select Model</h3>
-
-        {/* Search Input */}
+        <div className="h-full overflow-hidden">{/* Search Input */}
         <input
           type="text"
           value={searchTerm}
@@ -65,35 +56,36 @@ export default function ModelSelectorModal({
           className="w-full px-4 py-3 text-gray-200 bg-gray-700 rounded-lg mb-4 placeholder-gray-400"
         />
 
-        {/* Model List */}
-        <div className="space-y-2 max-h-60 overflow-y-auto">
-          {filteredModels.length > 0 ? (
-            filteredModels.map((model) => (
-              <button
-                key={model}
-                className={`w-full px-4 py-3 text-left rounded-lg transition-colors ${
-                  selectedModel === model
-                    ? 'bg-gray-600 text-white'
-                    : 'text-gray-200 hover:bg-gray-700'
-                }`}
-                onClick={() => handleModelSelect(model)}
-              >
-                {model}
-              </button>
-            ))
-          ) : (
-            <p className="text-gray-400">No models found.</p>
-          )}
-        </div>
-
-        {/* Cancel Button */}
-        <button
-          className="mt-4 w-full px-4 py-2 bg-gray-700 text-gray-200 rounded-lg hover:bg-gray-600 transition-colors"
-          onClick={onClose}
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
+        {isError ? (
+          <div className="flex justify-center items-center py-8">
+            <p className="text-red-500 text-center">Failed to load models. Please try again later.</p>
+          </div>
+        ) : isLoading ? (
+          <div className="flex justify-center items-center py-8">
+            <Loader2 className="text-gray-400 animate-spin" size={50} />
+          </div>
+        ) : (
+          <div className={filteredModels.length > 0 ? "space-y-2 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 h-full" : ""}>
+            {filteredModels.length > 0 ? (
+              filteredModels.map((model) => (
+                <button
+                  key={model.id}
+                  className={`cursor-pointer w-full px-4 py-3 text-center rounded-lg transition-colors ${
+                    selectedModel === model.name
+                      ? 'bg-gray-600 text-white'
+                      : 'text-gray-200 hover:bg-gray-700'
+                  }`}
+                  onClick={() => handleModelSelect(model.name)}
+                >
+                  <div className="font-medium text-ellipsis line-clamp-2">{model.name}</div>
+                </button>
+              ))
+            ) : (
+              <p className="text-gray-400 text-center">No models found.</p>
+            )}
+          </div>
+        )}</div>
+      </DialogContent>
+    </Dialog>
   );
 }

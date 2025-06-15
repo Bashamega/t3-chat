@@ -1,12 +1,24 @@
 "use client"
 import { ArrowUp, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ModelSelectorModal from "./model-selector-modal";
 
 export default function Input(){
     const [message, setMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedModel, setSelectedModel] = useState(localStorage?.getItem('selectedModel') || 'gpt5');
+    const [selectedModel, setSelectedModel] = useState(() => {
+      if (typeof window !== "undefined" && window.localStorage) {
+        return localStorage.getItem('selectedModel') || 'gpt5';
+      }
+      return 'gpt5';
+    });
+  
+    // Save selectedModel to localStorage whenever it changes
+    useEffect(() => {
+      if (selectedModel) {
+        localStorage.setItem('selectedModel', selectedModel);
+      }
+    }, [selectedModel]);
   
     const handleSubmit = (e: any) => {
       e.preventDefault();
