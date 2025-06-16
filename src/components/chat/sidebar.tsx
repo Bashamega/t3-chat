@@ -49,7 +49,9 @@ export function Sidebar() {
               alt={user.fullName || "User Avatar"}
               className="w-8 h-8 rounded-full"
             />
-            <span className="text-sm font-medium">{user.fullName}</span>
+            <span className="text-sm font-medium">
+              {user.fullName || user.primaryEmailAddress?.emailAddress}
+            </span>
           </div>
         </button>
       )}
