@@ -2,8 +2,10 @@
 import { ArrowUp, ChevronDown } from "lucide-react";
 import { useState, useEffect, FormEvent, KeyboardEvent } from "react";
 import ModelSelectorModal from "./model-selector-modal";
+import { useConversation } from "@/context/chat";
 
 export default function Input() {
+  const { sendMessage } = useConversation();
   const [message, setMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedModel, setSelectedModel] = useState(() => {
@@ -23,6 +25,7 @@ export default function Input() {
   const handleSubmit = (e: FormEvent<HTMLButtonElement> | KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (message.trim()) {
+      sendMessage(message.trim());
       console.log("Message sent:", message);
       setMessage("");
     }
