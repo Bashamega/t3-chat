@@ -50,7 +50,7 @@ export default function Input() {
           {message.trim() && (
             <button
               onClick={handleSubmit}
-              className="p-2 mr-2 text-gray-200 bg-gray-600 hover:bg-gray-500 rounded-md transition-colors"
+              className="p-2 mr-2 text-gray-200 bg-gray-600 hover:bg-gray-500 rounded-md transition-colors cursor-pointer"
               aria-label="Send message"
             >
               <ArrowUp size={16} />
@@ -65,7 +65,7 @@ export default function Input() {
           {/* Model selector button */}
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center space-x-2 text-gray-300 hover:text-gray-100 transition-colors text-sm"
+            className="flex items-center space-x-2 text-gray-300 hover:text-gray-100 transition-colors text-sm cursor-pointer"
           >
             <span>{selectedModel}</span>
             <ChevronDown size={16} />

@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva("", {
+const buttonVariants = cva("cursor-pointer", {
   variants: {
     variant: {
       outline:
