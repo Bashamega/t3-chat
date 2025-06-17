@@ -5,7 +5,7 @@ import ModelSelectorModal from "./model-selector-modal";
 import { useConversation } from "@/context/chat";
 
 export default function Input() {
-  const { sendMessage } = useConversation();
+  const { sendMessage, typing } = useConversation();
   const [message, setMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedModel, setSelectedModel] = useState<Model>(() => {
@@ -66,6 +66,7 @@ export default function Input() {
               onClick={handleSubmit}
               className="p-2 mr-2 text-gray-200 bg-gray-600 hover:bg-gray-500 rounded-md transition-colors cursor-pointer"
               aria-label="Send message"
+              disabled={typing}
             >
               <ArrowUp size={16} />
             </button>

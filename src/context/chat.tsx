@@ -14,12 +14,14 @@ type ConversationContextType = {
   sendMessage: (content: string, model: string) => void;
   receiveMessage: (content: string) => void;
   clearConversation: () => void;
+  typing: boolean;
 };
 
 const ConversationContext = createContext<ConversationContextType | undefined>(undefined);
 
 export function ConversationProvider({ children }: { children: ReactNode }) {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [typing, setTyping] = useState<boolean>(false);
 
   const addMessage = useCallback((sender: "user" | "bot", content: string) => {
     setMessages((prev) => [
@@ -35,6 +37,7 @@ export function ConversationProvider({ children }: { children: ReactNode }) {
 
   const sendMessage = (text: string, model: string) => {
     addMessage("user", text);
+    setTyping(true);
     fetch("/api/chat", {
       method: "POST",
       body: JSON.stringify({
@@ -43,7 +46,10 @@ export function ConversationProvider({ children }: { children: ReactNode }) {
       }),
     })
       .then((res) => res.json())
-      .then((data) => receiveMessage(data.result));
+      .then((data) => receiveMessage(data.result))
+      .finally(() => {
+        setTyping(false);
+      });
   };
 
   const receiveMessage = (content: string) => {
@@ -56,7 +62,7 @@ export function ConversationProvider({ children }: { children: ReactNode }) {
 
   return (
     <ConversationContext.Provider
-      value={{ messages, sendMessage, receiveMessage, clearConversation }}
+      value={{ messages, sendMessage, receiveMessage, clearConversation, typing }}
     >
       {children}
     </ConversationContext.Provider>
