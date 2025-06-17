@@ -11,7 +11,6 @@ export function validateRequest(req: NextRequest) {
   const isAllowedOrigin = ALLOWED_ORIGINS.includes(origin);
 
   return {
-    isValid: true,
     isAllowedOrigin,
     origin,
   };
@@ -22,6 +21,7 @@ export function addCorsHeaders(res: NextResponse, isAllowedOrigin: boolean, orig
     res.headers.set("Access-Control-Allow-Origin", origin);
     res.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.headers.set("Access-Control-Allow-Headers", "Content-Type");
+    res.headers.append("Vary", "Origin");
   }
   return res;
 }

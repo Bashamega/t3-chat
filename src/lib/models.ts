@@ -5,6 +5,11 @@ interface FullModel extends Model {
   };
 }
 export async function getFreeModels(): Promise<Model[]> {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) {
+    throw new Error("OPENROUTER_API_KEY environment variable is not defined");
+  }
+
   const response = await fetch("https://openrouter.ai/api/v1/models/", {
     headers: {
       Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,

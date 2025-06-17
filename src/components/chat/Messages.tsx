@@ -10,7 +10,7 @@ export type Message = {
 };
 
 export function Messages() {
-  const { messages, typing } = useConversation();
+  const { messages, typing, error } = useConversation();
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -48,6 +48,7 @@ export function Messages() {
           ></div>
         </div>
       )}
+      {error && <div className="text-red-500">Error: Something went wrong.</div>}
       <div ref={bottomRef} />
     </div>
   );

@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateRequest, addCorsHeaders, CACHE_FOREVER_HEADER } from "@/lib/api-security";
 import { getFreeModels } from "@/lib/models";
+
 export async function GET(req: NextRequest) {
-  const validation = validateRequest(req);
+  const { isAllowedOrigin, origin } = validateRequest(req);
+
+  // Return 403 if origin is not allowed
+  if (!isAllowedOrigin) {
+    return new NextResponse(null, { status: 403 });
+  }
 
   try {
     const data = await getFreeModels();
@@ -15,7 +21,7 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    return addCorsHeaders(res, validation.isAllowedOrigin ?? false, validation.origin ?? "");
+    return addCorsHeaders(res, isAllowedOrigin, origin);
   } catch (error) {
     console.error("Error fetching models:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
@@ -23,7 +29,7 @@ export async function GET(req: NextRequest) {
 }
 
 export function OPTIONS(req: NextRequest) {
-  const validation = validateRequest(req);
+  const { isAllowedOrigin, origin } = validateRequest(req);
   const res = new NextResponse(null, { status: 204 });
-  return addCorsHeaders(res, validation.isAllowedOrigin ?? false, validation.origin ?? "");
+  return addCorsHeaders(res, isAllowedOrigin, origin);
 }

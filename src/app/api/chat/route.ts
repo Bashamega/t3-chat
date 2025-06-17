@@ -3,7 +3,12 @@ import { validateRequest, addCorsHeaders } from "@/lib/api-security";
 import { getFreeModels } from "@/lib/models";
 
 export async function POST(req: NextRequest) {
-  const validation = validateRequest(req);
+  const { isAllowedOrigin, origin } = validateRequest(req);
+
+  // Return 403 if origin is not allowed
+  if (!isAllowedOrigin) {
+    return new NextResponse(null, { status: 403 });
+  }
 
   const { model, text } = await req.json();
 
@@ -21,11 +26,14 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-
+    const token = process.env.OPENROUTER_API_KEY;
+    if (!token) {
+      return NextResponse.json({ error: "Token undefined" }, { status: 400 });
+    }
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -41,14 +49,14 @@ export async function POST(req: NextRequest) {
     }
 
     const res = NextResponse.json({ result: data.choices[0].message.content });
-    return addCorsHeaders(res, validation.isAllowedOrigin ?? false, validation.origin ?? "");
+    return addCorsHeaders(res, isAllowedOrigin, origin);
   } catch (error) {
     return NextResponse.json({ error: "Something went wrong", details: error }, { status: 500 });
   }
 }
 
 export function OPTIONS(req: NextRequest) {
-  const validation = validateRequest(req);
+  const { isAllowedOrigin, origin } = validateRequest(req);
   const res = new NextResponse(null, { status: 204 });
-  return addCorsHeaders(res, validation.isAllowedOrigin ?? false, validation.origin ?? "");
+  return addCorsHeaders(res, isAllowedOrigin, origin);
 }
