@@ -11,7 +11,7 @@ type Message = {
 
 type ConversationContextType = {
   messages: Message[];
-  sendMessage: (content: string) => void;
+  sendMessage: (content: string, model:string) => void;
   receiveMessage: (content: string) => void;
   clearConversation: () => void;
 };
@@ -33,8 +33,17 @@ export function ConversationProvider({ children }: { children: ReactNode }) {
     ]);
   }, []);
 
-  const sendMessage = (content: string) => {
-    addMessage("user", content);
+  const sendMessage = (text: string, model: string) => {
+    addMessage("user", text);
+    fetch("/api/chat", {
+      method: "POST",
+      body: JSON.stringify({
+        text,
+        model
+      })
+    }).then(res=>res.json()).then(
+      data=>receiveMessage(data.result)
+    )
   };
 
   const receiveMessage = (content: string) => {

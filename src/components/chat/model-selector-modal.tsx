@@ -6,8 +6,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 interface ModelSelectorModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelectModel: (model: string) => void;
-  selectedModel: string;
+  onSelectModel: (model: Model) => void;
+  selectedModel: Model;
 }
 
 export default function ModelSelectorModal({
@@ -22,14 +22,14 @@ export default function ModelSelectorModal({
   // Save selected model to localStorage whenever it changes
   useEffect(() => {
     if (selectedModel) {
-      localStorage.setItem("selectedModel", selectedModel);
+      localStorage.setItem("selectedModel", JSON.stringify(selectedModel));
     }
   }, [selectedModel]);
 
   const filteredModels =
     data?.filter((model) => model.name.toLowerCase().includes(searchTerm.toLowerCase())) ?? [];
 
-  const handleModelSelect = (model: string) => {
+  const handleModelSelect = (model: Model) => {
     onSelectModel(model);
     onClose();
   };
@@ -74,11 +74,11 @@ export default function ModelSelectorModal({
                   <button
                     key={model.id}
                     className={`cursor-pointer w-full px-4 py-3 text-center rounded-lg transition-colors ${
-                      selectedModel === model.name
+                      selectedModel.id === model.id
                         ? "bg-gray-600 text-white"
                         : "text-gray-200 hover:bg-gray-700"
                     }`}
-                    onClick={() => handleModelSelect(model.name)}
+                    onClick={() => handleModelSelect(model)}
                   >
                     <div className="font-medium text-ellipsis line-clamp-2">{model.name}</div>
                   </button>
