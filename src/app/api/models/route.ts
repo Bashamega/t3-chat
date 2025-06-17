@@ -1,17 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateRequest, addCorsHeaders, CACHE_FOREVER_HEADER } from "@/lib/api-security";
 import { getFreeModels } from "@/lib/models";
-
-// Allowed origins (edit for production use)
-const ALLOWED_ORIGINS = ["http://localhost:3000"];
-
-interface FullModel extends Model {
-  pricing: {
-    prompt: string;
-    completion: string;
-  };
-}
-
 export async function GET(req: NextRequest) {
   const validation = validateRequest(req);
 

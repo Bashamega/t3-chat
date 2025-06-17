@@ -26,4 +26,4 @@ export function addCorsHeaders(res: NextResponse, isAllowedOrigin: boolean, orig
   return res;
 }
 
-export { CACHE_FOREVER_HEADER }; 
+export { CACHE_FOREVER_HEADER };

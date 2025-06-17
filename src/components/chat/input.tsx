@@ -11,9 +11,17 @@ export default function Input() {
   const [selectedModel, setSelectedModel] = useState<Model>(() => {
     if (typeof window !== "undefined" && window.localStorage) {
       const storedModel = localStorage.getItem("selectedModel");
-      return storedModel ? JSON.parse(storedModel) : { name: "DeepSeek: Deepseek R1 0528 Qwen3 8B", id: "deepseek/deepseek-r1-0528-qwen3-8b:free" };
+      return storedModel
+        ? JSON.parse(storedModel)
+        : {
+            name: "DeepSeek: Deepseek R1 0528 Qwen3 8B",
+            id: "deepseek/deepseek-r1-0528-qwen3-8b:free",
+          };
     }
-    return { name: "DeepSeek: Deepseek R1 0528 Qwen3 8B", id: "deepseek/deepseek-r1-0528-qwen3-8b:free" };
+    return {
+      name: "DeepSeek: Deepseek R1 0528 Qwen3 8B",
+      id: "deepseek/deepseek-r1-0528-qwen3-8b:free",
+    };
   });
 
   useEffect(() => {

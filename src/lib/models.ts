@@ -26,4 +26,4 @@ export async function getFreeModels(): Promise<Model[]> {
       name: model.name.replace(" (free)", ""),
       description: model.description,
     }));
-} 
+}

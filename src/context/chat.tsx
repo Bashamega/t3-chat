@@ -11,7 +11,7 @@ type Message = {
 
 type ConversationContextType = {
   messages: Message[];
-  sendMessage: (content: string, model:string) => void;
+  sendMessage: (content: string, model: string) => void;
   receiveMessage: (content: string) => void;
   clearConversation: () => void;
 };
@@ -39,11 +39,11 @@ export function ConversationProvider({ children }: { children: ReactNode }) {
       method: "POST",
       body: JSON.stringify({
         text,
-        model
-      })
-    }).then(res=>res.json()).then(
-      data=>receiveMessage(data.result)
-    )
+        model,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => receiveMessage(data.result));
   };
 
   const receiveMessage = (content: string) => {
