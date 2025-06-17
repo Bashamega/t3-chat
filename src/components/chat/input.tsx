@@ -2,33 +2,47 @@
 import { ArrowUp, ChevronDown } from "lucide-react";
 import { useState, useEffect, FormEvent, KeyboardEvent } from "react";
 import ModelSelectorModal from "./model-selector-modal";
+import { useConversation } from "@/context/chat";
 
 export default function Input() {
+  const { sendMessage, typing } = useConversation();
   const [message, setMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedModel, setSelectedModel] = useState(() => {
+  const [selectedModel, setSelectedModel] = useState<Model>(() => {
     if (typeof window !== "undefined" && window.localStorage) {
-      return localStorage.getItem("selectedModel") || "DeepSeek: Deepseek R1 0528 Qwen3 8B";
+      const storedModel = localStorage.getItem("selectedModel");
+      return storedModel
+        ? JSON.parse(storedModel)
+        : {
+            name: "DeepSeek: Deepseek R1 0528 Qwen3 8B",
+            id: "deepseek/deepseek-r1-0528-qwen3-8b:free",
+          };
     }
-    return "DeepSeek: Deepseek R1 0528 Qwen3 8B";
+    return {
+      name: "DeepSeek: Deepseek R1 0528 Qwen3 8B",
+      id: "deepseek/deepseek-r1-0528-qwen3-8b:free",
+    };
   });
 
-  // Save selectedModel to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("selectedModel", JSON.stringify(selectedModel));
+  }, [selectedModel]);
   useEffect(() => {
     if (selectedModel) {
-      localStorage.setItem("selectedModel", selectedModel);
+      localStorage.setItem("selectedModel", JSON.stringify(selectedModel));
     }
   }, [selectedModel]);
 
   const handleSubmit = (e: FormEvent<HTMLButtonElement> | KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (message.trim()) {
+      sendMessage(message.trim(), selectedModel.id);
       console.log("Message sent:", message);
       setMessage("");
     }
   };
 
-  const handleModelSelect = (model: string) => {
+  const handleModelSelect = (model: Model) => {
     setSelectedModel(model);
   };
 
@@ -52,6 +66,7 @@ export default function Input() {
               onClick={handleSubmit}
               className="p-2 mr-2 text-gray-200 bg-gray-600 hover:bg-gray-500 rounded-md transition-colors cursor-pointer"
               aria-label="Send message"
+              disabled={typing}
             >
               <ArrowUp size={16} />
             </button>
@@ -67,7 +82,7 @@ export default function Input() {
             onClick={() => setIsModalOpen(true)}
             className="flex items-center space-x-2 text-gray-300 hover:text-gray-100 transition-colors text-sm cursor-pointer"
           >
-            <span>{selectedModel}</span>
+            <span>{selectedModel.name}</span>
             <ChevronDown size={16} />
           </button>
         </div>
